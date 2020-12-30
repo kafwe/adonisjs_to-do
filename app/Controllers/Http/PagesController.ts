@@ -6,8 +6,9 @@ export default class PagesController {
         return view.render('welcome')   
     }
 
-    public about({ view }: HttpContextContract) {
-        return view.render('about')
+    public about({ view, params }: HttpContextContract) {
+        const name = params.name; 
+        return view.render('about', { name })
     }
 
     public contact({ view }) {

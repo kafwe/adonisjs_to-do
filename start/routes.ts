@@ -22,7 +22,7 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', 'PagesController.home')
 
-Route.get('/about-us', 'PagesController.about').as('about')
+Route.get('/about/:name?', 'PagesController.about').as('about')
 
 Route.get('/contact-us', 'PagesController.contact').as('contact')
 
