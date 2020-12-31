@@ -5,9 +5,10 @@
         <div class="column is-three-fifths is-offset-one-fifth">
             <div class="box">
                 <form action="/tasks" method="post">
+                {{ csrfField() }}
                     <div class="field has-addons">
                         <div class="control is-expanded">
-                            <input type="text" name="title" class="input" placeholder="What neeeds to be done?"><
+                            <input type="text" name="title" class="input" placeholder="What neeeds to be done?">
                         </div>
                         <div class="control">
                             <button type="submit" class="button is-link">Add</button>
