@@ -8,12 +8,17 @@
                 {{ csrfField() }}
                     <div class="field has-addons">
                         <div class="control is-expanded">
-                            <input type="text" name="title" class="input" placeholder="What neeeds to be done?">
+                            <input type="text" name="title" class="input {{ flashMessages.has('errors.title') ? 'is-danger' : '' }}" placeholder="What neeeds to be done?">
                         </div>
                         <div class="control">
                             <button type="submit" class="button is-link">Add</button>
                         </div>
                     </div>
+                    @if(flashMessages.has('errors.title'))
+                      <p class="help is-danger">
+                        {{ flashMessages.get('errors.title') }}
+                      </p>
+                    @endif
                 </form>
             </div>
         </div>
