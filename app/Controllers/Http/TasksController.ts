@@ -7,9 +7,9 @@ export default class TasksController {
         return view.render('tasks/index')
     }
 
-    public async store ({ request, response }: HttpContextContract) {
+    public async store ({ request, response, session }: HttpContextContract) {
         const validationSchema = schema.create({
-            title: schema.string({ trim: true }. [
+            title: schema.string({ trim: true }, [
                 rules.maxLength(255), 
             ])
         })
@@ -25,6 +25,8 @@ export default class TasksController {
         await Task.create({
            title: validatedData.title
         })
+
+        session.flash('notification', 'Task Added!')
 
         return response.redirect('back')
 

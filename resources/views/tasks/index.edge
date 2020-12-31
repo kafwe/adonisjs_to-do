@@ -4,11 +4,12 @@
     <div class="columns">
         <div class="column is-three-fifths is-offset-one-fifth">
             <div class="box">
+
                 <form action="/tasks" method="post">
                 {{ csrfField() }}
                     <div class="field has-addons">
                         <div class="control is-expanded">
-                            <input type="text" name="title" class="input {{ flashMessages.has('errors.title') ? 'is-danger' : '' }}" placeholder="What neeeds to be done?">
+                            <input type="text" name="title" class="input {{ flashMessages.has('errors.title') ? 'is-danger' : '' }}" placeholder="What neeeds to be done?" value="{{ flashMessages.get('title') || '' }}">
                         </div>
                         <div class="control">
                             <button type="submit" class="button is-link">Add</button>
@@ -21,6 +22,12 @@
                     @endif
                 </form>
             </div>
+
+            @if(flashMessages.has('notification'))
+              <div class="notification is-success is-light">
+                {{ flashMessages.get('notification')}}
+              </div>
+            @endif
         </div>
     </div>
 @endsection
