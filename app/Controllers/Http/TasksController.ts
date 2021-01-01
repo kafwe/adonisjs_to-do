@@ -3,34 +3,43 @@ import Task from 'App/Models/Task'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 export default class TasksController {
-    public async index ({ view }: HttpContextContract) {
-        const tasks = await Task.all()
-        
-        return view.render('tasks/index', { tasks })
-    }
+  public async index({ view }: HttpContextContract) {
+    const tasks = await Task.all()
 
-    public async store ({ request, response, session }: HttpContextContract) {
-        const validationSchema = schema.create({
-            title: schema.string({ trim: true }, [
-                rules.maxLength(255), 
-            ])
-        })
+    return view.render('tasks/index', { tasks })
+  }
 
-        const validatedData = await request.validate({
-            schema: validationSchema, 
-            messages: {
-                'title.required': 'Enter task title',
-                'title.maxLength': 'Task title cannot exceed 255 characters'
-            }, 
-        })
+  public async store({ request, response, session }: HttpContextContract) {
+    const validationSchema = schema.create({
+      title: schema.string({ trim: true }, [rules.maxLength(255)]),
+    })
 
-        await Task.create({
-           title: validatedData.title
-        })
+    const validatedData = await request.validate({
+      schema: validationSchema,
+      messages: {
+        'title.required': 'Enter task title',
+        'title.maxLength': 'Task title cannot exceed 255 characters',
+      },
+    })
 
-        session.flash('notification', 'Task Added!')
+    await Task.create({
+      title: validatedData.title,
+    })
 
-        return response.redirect('back')
+    session.flash('notification', 'Task Added!')
 
-    }
+    return response.redirect('back')
+  }
+
+  public async update({ request, response, session, params }: HttpContextContract) {
+    const task = await Task.findOrFail(params.id)
+
+    task.isCompleted = !!request.input('completed')
+
+    await task.save()
+
+    session.flash('notification', 'Task updated!')
+
+    return response.redirect('back')
+  }
 }
