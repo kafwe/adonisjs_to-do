@@ -3,8 +3,10 @@ import Task from 'App/Models/Task'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 export default class TasksController {
-    public index ({ view }: HttpContextContract) {
-        return view.render('tasks/index')
+    public async index ({ view }: HttpContextContract) {
+        const tasks = await Task.all()
+        
+        return view.render('tasks/index', { tasks })
     }
 
     public async store ({ request, response, session }: HttpContextContract) {
