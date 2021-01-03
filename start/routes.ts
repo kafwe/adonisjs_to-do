@@ -19,8 +19,15 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import AuthController from 'App/Controllers/Http/AuthController'
 
 Route.get('/', 'TasksController.index')
 Route.post('/tasks', 'TasksController.store')
 Route.patch('/tasks/:id', 'TasksController.update')
 Route.delete('/tasks/:id', 'TasksController.destroy')
+
+Route.get('/register', 'AuthController.showRegister')
+Route.post('/register', 'AuthController.register')
+Route.post('/logout', 'AuthController.logout')
+Route.get('/login', 'AuthController.showLogin')
+Route.post('/login', 'AuthController.login')
