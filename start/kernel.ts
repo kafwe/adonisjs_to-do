@@ -42,4 +42,4 @@ Server.middleware.register([
 | Route.get('dashboard', 'UserController.dashboard').middleware('auth')
 |
 */
-Server.middleware.registerNamed({ auth: 'App/Middleware/Auth' })
+Server.middleware.registerNamed({ auth: 'App/Middleware/Auth', guest: 'App/Middleware/Guest' })
